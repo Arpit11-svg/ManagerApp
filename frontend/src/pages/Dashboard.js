@@ -8,7 +8,7 @@ function Dashboard() {
     const token = localStorage.getItem("token");
 
     const fetchExpenses = async () => {
-        const res = await axios.get(" https://dashboard-backend-enl9.onrender.com/api/expenses", {
+        const res = await axios.get("https://dashboard-backend-enl9.onrender.com/api/expenses", {
             headers: { Authorization: `Bearer ${token}` }
         });
         setExpenses(res.data);
@@ -17,7 +17,7 @@ function Dashboard() {
     const addExpense = async (e) => {
         e.preventDefault();
         try {
-            await axios.post(" https://dashboard-backend-enl9.onrender.com/api/expenses", form, {
+            await axios.post("https://dashboard-backend-enl9.onrender.com/api/expenses", form, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             fetchExpenses();
@@ -29,7 +29,7 @@ function Dashboard() {
 
     const deleteExpense = async (id) => {
         try {
-            await axios.delete(` https://dashboard-backend-enl9.onrender.com/api/expenses/${id}`, {
+            await axios.delete(`https://dashboard-backend-enl9.onrender.com/api/expenses/${id}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
 
@@ -40,6 +40,7 @@ function Dashboard() {
         }
     };
 
+    // eslint-disable-next-line
     useEffect(() => {
         fetchExpenses();
     }, []);
