@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import API from "../api";
 
 function Login() {
   const [form, setForm] = useState({ email: "", password: "" });
@@ -10,7 +11,7 @@ function Login() {
     e.preventDefault();
 
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/login", form);
+      const res = await axios.post(`${API}/api/auth/register`, data);
 
       localStorage.setItem("token", res.data.token);
 

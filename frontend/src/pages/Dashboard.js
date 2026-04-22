@@ -1,5 +1,6 @@
 import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
+import API from "../api";
 
 function Dashboard() {
     const [expenses, setExpenses] = useState([]);
@@ -9,7 +10,7 @@ function Dashboard() {
 
     const fetchExpenses = useCallback(async () => {
         try {
-            const res = await axios.get("https://dashboard-backend-enl9.onrender.com/api/expenses", {
+            const res = await axios.get(`${API}/api/expenses`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             setExpenses(res.data);
@@ -21,7 +22,7 @@ function Dashboard() {
     const addExpense = async (e) => {
         e.preventDefault();
         try {
-            await axios.post("https://dashboard-backend-enl9.onrender.com/api/expenses", form, {
+            await axios.post(`${API}/api/expenses`, form, {
                 headers: { Authorization: `Bearer ${token}` }
             });
             fetchExpenses();
@@ -33,21 +34,21 @@ function Dashboard() {
 
     const deleteExpense = async (id) => {
         try {
-            await axios.delete(`https://dashboard-backend-enl9.onrender.com/api/expenses/${id}`, {
+            await axios.delete(`${API}/api/expenses/${id}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
-
-            fetchExpenses(); // refresh list
+            fetchExpenses();
         } catch (err) {
             console.error(err);
             alert("Delete failed");
         }
     };
 
-    // eslint-disable-next-line
     useEffect(() => {
-        fetchExpenses();
-    }, [fetchExpenses]);
+        if (token) {
+            fetchExpenses();
+        }
+    }, [fetchExpenses, token]);
 
     return (
         <div className="container">
@@ -71,7 +72,6 @@ function Dashboard() {
             <div className="expense-list">
                 {expenses.map(exp => (
                     <div className="expense-card" key={exp._id}>
-
                         <div className="expense-header">
                             <h3>{exp.title}</h3>
                             <span className="amount">₹{exp.amount}</span>
@@ -81,14 +81,12 @@ function Dashboard() {
                             <span>{exp.category}</span>
                         </div>
 
-                        {/* 🔥 DELETE BUTTON */}
                         <button
                             style={{ marginTop: "10px", background: "#ff4d4d" }}
                             onClick={() => deleteExpense(exp._id)}
                         >
                             Delete
                         </button>
-
                     </div>
                 ))}
             </div>
