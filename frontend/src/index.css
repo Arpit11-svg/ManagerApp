@@ -1,0 +1,146 @@
+/* 🌈 Background */
+body {
+  margin: 0;
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  min-height: 100vh;
+}
+
+/* 📦 Main Container */
+.container {
+  max-width: 420px;
+  margin: 80px auto;
+  padding: 30px;
+  border-radius: 20px;
+
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(20px);
+
+  box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+  color: white;
+}
+
+/* 🧾 Headings */
+h2 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* 🧾 Inputs & Select */
+input, select {
+  width: 100%;
+  padding: 12px;
+  margin: 10px 0;
+  border-radius: 10px;
+  border: none;
+
+  background: rgba(255,255,255,0.2);
+  color: rgb(14, 5, 178);
+  font-size: 14px;
+}
+
+input::placeholder {
+  color: #ddd;
+}
+
+/* 🔘 Button */
+button {
+  width: 100%;
+  padding: 12px;
+  margin-top: 10px;
+  border-radius: 10px;
+  border: none;
+
+  background: #667eea;
+  color: rgb(57, 30, 175);
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
+}
+
+button:hover {
+  background: #5a67d8;
+}
+
+/* 📋 Expense List */
+.expense-list {
+  margin-top: 20px;
+}
+
+/* 💎 Expense Card */
+.expense-card {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 15px;
+  border-radius: 14px;
+  margin-bottom: 12px;
+
+  backdrop-filter: blur(10px);
+  box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+
+  transition: transform 0.2s ease;
+}
+
+.expense-card:hover {
+  transform: translateY(-4px);
+}
+
+/* 🔥 Align header properly */
+.expense-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Title */
+.expense-header h3 {
+  margin: 0;
+  font-size: 16px;
+}
+
+/* Amount on right */
+.amount {
+  font-weight: bold;
+  font-size: 16px;
+}
+
+/* Footer */
+.expense-footer {
+  margin-top: 8px;
+  font-size: 13px;
+  opacity: 0.8;
+}
+
+/* 🧾 Card Content */
+.expense-card h3 {
+  margin: 0;
+  font-size: 18px;
+}
+
+.expense-card p {
+  margin: 5px 0;
+  font-weight: bold;
+}
+
+.expense-card small {
+  opacity: 0.8;
+  font-size: 12px;
+}
+
+/* 🔗 Links */
+p {
+  text-align: center;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+p:hover {
+  text-decoration: underline;
+}
+
+button {
+  transition: 0.2s;
+}
+
+button:hover {
+  opacity: 0.9;
+}
