@@ -8,10 +8,14 @@ function Dashboard() {
     const token = localStorage.getItem("token");
 
     const fetchExpenses = async () => {
-        const res = await axios.get("https://dashboard-backend-enl9.onrender.com/api/expenses", {
-            headers: { Authorization: `Bearer ${token}` }
-        });
-        setExpenses(res.data);
+        try {
+            const res = await axios.get("https://dashboard-backend-enl9.onrender.com/api/expenses", {
+                headers: { Authorization: `Bearer ${token}` }
+            });
+            setExpenses(res.data);
+        } catch (err) {
+            console.error(err);
+        }
     };
 
     const addExpense = async (e) => {
@@ -43,7 +47,7 @@ function Dashboard() {
     // eslint-disable-next-line
     useEffect(() => {
         fetchExpenses();
-    }, []);
+    }, [token]);
 
     return (
         <div className="container">
