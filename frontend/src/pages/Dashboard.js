@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import axios from "axios";
 
 function Dashboard() {
@@ -7,7 +7,7 @@ function Dashboard() {
 
     const token = localStorage.getItem("token");
 
-    const fetchExpenses = async () => {
+    const fetchExpenses = useCallback(async () => {
         try {
             const res = await axios.get("https://dashboard-backend-enl9.onrender.com/api/expenses", {
                 headers: { Authorization: `Bearer ${token}` }
@@ -16,7 +16,7 @@ function Dashboard() {
         } catch (err) {
             console.error(err);
         }
-    };
+    }, [token]);
 
     const addExpense = async (e) => {
         e.preventDefault();
@@ -47,7 +47,7 @@ function Dashboard() {
     // eslint-disable-next-line
     useEffect(() => {
         fetchExpenses();
-    }, [token]);
+    }, [fetchExpenses]);
 
     return (
         <div className="container">
