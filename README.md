@@ -1,0 +1,39 @@
+# 🧳 Lost & Found Manager App (MERN)
+
+A full-stack Lost & Found management system built using the MERN stack (MongoDB, Express, React, Node.js).
+
+Users can register, login, add lost/found items, search items, and manage them securely.
+
+---
+
+## 🚀 Features
+
+- 🔐 User Authentication (Register & Login with JWT)
+- ➕ Add Lost/Found Items
+- 📄 View All Items
+- ❌ Delete Items
+- 📍 Store location, date, and contact info
+- 🌐 Fully deployed (Frontend + Backend)
+
+---
+
+## 🛠️ Tech Stack
+
+**Frontend**
+- React.js
+- Axios
+- React Router
+
+**Backend**
+- Node.js
+- Express.js
+
+**Database**
+- MongoDB Atlas
+
+**Deployment**
+- Frontend → Vercel  
+- Backend → Render
+
+---
+
