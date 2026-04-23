@@ -31,9 +31,10 @@ Users can register, login, add lost/found items, search items, and manage them s
 **Database**
 - MongoDB Atlas
 
-**Deployment**
-- Frontend → Vercel  
-- Backend → Render
+## 🌐 Live Demo
+
+🔗 Frontend (Vercel): [https://manager-690qts97r-arpit2428cseai2125-3116s-projects.vercel.app/)](https://manager-690qts97r-arpit2428cseai2125-3116s-projects.vercel.app/)
+🔗 Backend (Render): [https://your-render-link.onrender.com](https://dashboard-backend-enl9.onrender.com/)
 
 ---
 
