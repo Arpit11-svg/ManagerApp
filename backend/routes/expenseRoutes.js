@@ -6,23 +6,25 @@ const authMiddleware = require("../middleware/authMiddleware");
 // ➕ Add Expense (Protected)
 router.post("/", authMiddleware, async (req, res) => {
   try {
-    const { title, amount, category } = req.body;
+    const { itemName, description, type, location, contactInfo } = req.body;
 
-    // ✅ validation
-    if (!title || !amount) {
-      return res.status(400).json({ message: "Title and amount required" });
+    if (!itemName || !description || !type || !location || !contactInfo) {
+      return res.status(400).json({ message: "All fields are required" });
     }
 
     const expense = await Expense.create({
       user: req.user._id,
-      title,
-      amount,
-      category,
+      itemName,
+      description,
+      type,
+      location,
+      contactInfo
     });
 
     res.status(201).json(expense);
+
   } catch (error) {
-    console.error(error); // 👈 ADD THIS
+    console.error("ERROR:", error.message);
     res.status(500).json({ error: error.message });
   }
 });
@@ -43,7 +45,7 @@ router.delete("/:id", authMiddleware, async (req, res) => {
     const expense = await Expense.findById(req.params.id);
 
     if (!expense) {
-      return res.status(404).json({ message: "Expense not found" });
+      return res.status(404).json({ message: "Item not found" });
     }
 
     // make sure user owns this expense
@@ -53,7 +55,7 @@ router.delete("/:id", authMiddleware, async (req, res) => {
 
     await expense.deleteOne();
 
-    res.json({ message: "Expense deleted" });
+    res.json({ message: "Item deleted" });
 
   } catch (error) {
     console.error(error);

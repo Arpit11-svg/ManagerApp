@@ -1,6 +1,7 @@
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import API from "../api";
 
 function Register() {
   const navigate = useNavigate(); // ✅ inside component
@@ -15,7 +16,7 @@ function Register() {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:5000/api/auth/register", form);
+      await axios.post(`${API}/api/auth/register`, form);
 
       alert("Registered successfully");
 
@@ -29,7 +30,7 @@ function Register() {
       navigate("/login");
 
     } catch (err) {
-      alert("Registration failed");
+      alert("Already Registered or Registration failed due to missing Information");
 
       // ✅ CLEAR FORM ON ERROR ALSO
       setForm({

@@ -4,7 +4,14 @@ import API from "../api";
 
 function Dashboard() {
     const [expenses, setExpenses] = useState([]);
-    const [form, setForm] = useState({ title: "", amount: "", category: "" });
+    const [form, setForm] = useState({
+        itemName: "",
+        description: "",
+        type: "",
+        location: "",
+        date: "",
+        contactInfo: ""
+    });
 
     const token = localStorage.getItem("token");
 
@@ -21,14 +28,38 @@ function Dashboard() {
 
     const addExpense = async (e) => {
         e.preventDefault();
+
+        // 🔥 VALIDATION BEFORE API CALL
+        if (
+            !form.itemName ||
+            !form.description ||
+            !form.type ||
+            !form.location ||
+            !form.contactInfo
+        ) {
+            alert("Please fill all fields");
+            return;
+        }
+
         try {
             await axios.post(`${API}/api/expenses`, form, {
                 headers: { Authorization: `Bearer ${token}` }
             });
+
+            setForm({
+                itemName: "",
+                description: "",
+                type: "",
+                location: "",
+                date: "",
+                contactInfo: ""
+            });
+
             fetchExpenses();
+
         } catch (err) {
-            console.error(err);
-            alert("Error adding expense");
+            console.error(err.response?.data || err.message);
+            alert("Error adding Item");
         }
     };
 
@@ -52,35 +83,63 @@ function Dashboard() {
 
     return (
         <div className="container">
-            <h2>Dashboard</h2>
+            <h2>Lost and Found</h2>
 
             <form onSubmit={addExpense}>
-                <input placeholder="Title" onChange={e => setForm({ ...form, title: e.target.value })} />
                 <input
-                    type="number"
-                    placeholder="Amount"
-                    onChange={e => setForm({ ...form, amount: Number(e.target.value) })}
+                    value={form.itemName}
+                    placeholder="Item Name"
+                    onChange={e => setForm({ ...form, itemName: e.target.value })}
                 />
                 <input
-                    placeholder="Enter Type / Category"
-                    value={form.category}
-                    onChange={e => setForm({ ...form, category: e.target.value })}
+                    value={form.description}
+                    placeholder="Description"
+                    onChange={e => setForm({ ...form, description: e.target.value })}
                 />
-                <button>Add Expense</button>
+
+                <select
+                    value={form.type}
+                    onChange={e => setForm({ ...form, type: e.target.value })}
+                >
+                    <option value="">Select Type</option>
+                    <option value="Lost">Lost</option>
+                    <option value="Found">Found</option>
+                </select>
+
+                <input
+                    value={form.location}
+                    placeholder="Location"
+                    onChange={e => setForm({ ...form, location: e.target.value })}
+                />
+
+                <input
+                    value={form.date}
+                    type="date"
+                    onChange={e => setForm({ ...form, date: e.target.value })}
+                />
+
+                <input
+                    value={form.contactInfo}
+                    placeholder="Contact Info"
+                    onChange={e => setForm({ ...form, contactInfo: e.target.value })}
+                />
+                <button>Add Item</button>
             </form>
 
             <div className="expense-list">
                 {expenses.map(exp => (
                     <div className="expense-card" key={exp._id}>
                         <div className="expense-header">
-                            <h3>{exp.title}</h3>
-                            <span className="amount">₹{exp.amount}</span>
+                            <h3>{exp.itemName}</h3>
                         </div>
 
                         <div className="expense-footer">
-                            <span>{exp.category}</span>
+                            <p>{exp.description}</p>
+                            <p>🔎 {exp.type}</p>
+                            <p>📍 {exp.location}</p>
+                            <p>📅 {new Date(exp.date).toLocaleDateString()}</p>
+                            <p>📞 {exp.contactInfo}</p>
                         </div>
-
                         <button
                             style={{ marginTop: "10px", background: "#ff4d4d" }}
                             onClick={() => deleteExpense(exp._id)}
